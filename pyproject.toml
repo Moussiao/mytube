@@ -1,0 +1,94 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "mytube"
+description = ""
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "~3.13"
+uvicorn = "^0.32.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+pytest-asyncio = "^0.24.0"
+pytest-cov = "^6.0.0"
+pytest-randomly = "^3.16.0"
+pytest-timeout = "^2.3.1"
+covdefaults = "^2.3.0"
+black = "^24.10.0"
+pre-commit = "^4.0.1"
+ruff = "^0.7.2"
+mypy = "^1.13.0"
+
+[tool.pytest.ini_options]
+addopts = "--cov=. --cov-report=term-missing:skip-covered --cov-report=html --cov-fail-under=0"
+python_files = "test*.py"
+# Timeout for tests, so they can not take longer than this amount of seconds.
+# (https://pypi.org/project/pytest-timeout/)
+timeout = 5
+
+[tool.coverage.run]
+plugins = ["covdefaults"]
+
+[tool.black]
+line-length = 100
+target-version = ['py313']
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+# https://beta.ruff.rs/docs/rules/
+select = ["ALL"]
+fixable = ["I"]
+ignore = [
+    "ARG001",  # Unused function argument: `kwargs`
+    "ARG002",  # unused method argument: `{}`
+    "ARG004",  # Unused static method argument: `context`
+    "COM812",  # trailing comma missing
+    "D100",  # missing docstring in public module
+    "D101",  # missing docstring in public class
+    "D102",  # missing docstring in public method
+    "D103",  # missing docstring in public function
+    "D104",  # missing docstring in public package
+    "D105",  # missing docstring in magic method
+    "D106",  # missing docstring in public nested class
+    "D107",  # missing docstring in `__init__`
+    "D200",  # one-line docstring should fit on one line
+    "D202",  # no blank lines allowed after function docstring (found {})
+    "D203",  # 1 blank line required before class docstring
+    "D205",  # 1 blank line required between summary line and description
+    "D209",  # multi-line docstring closing quotes should be on a separate line
+    "D210",  # no whitespaces allowed surrounding docstring text
+    "D212",  # multi-line docstring summary should start at the first line
+    "D213",  # multi-line docstring summary should start at the second line
+    "D400",  # first line should end with a period
+    "D401",  # first line of docstring should be in imperative mood: "{}"
+    "D404",  # first word of the docstring should not be "This"
+    "D415",  # first line should end with a period, question mark, or exclamation point
+]
+
+[tool.mypy]
+python_version = "3.13"
+enable_error_code = [
+  "truthy-bool",
+  "truthy-iterable",
+  "unused-awaitable",
+  "ignore-without-code",
+  "possibly-undefined",
+  "redundant-self",
+]
+
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+explicit_package_bases = true
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unreachable = true
+strict = true
+
