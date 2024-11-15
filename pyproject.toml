@@ -10,6 +10,7 @@ package-mode = false
 [tool.poetry.dependencies]
 python = "~3.13"
 uvicorn = "^0.32.0"
+attrs = "^24.2.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
@@ -20,7 +21,7 @@ pytest-timeout = "^2.3.1"
 covdefaults = "^2.3.0"
 black = "^24.10.0"
 pre-commit = "^4.0.1"
-ruff = "^0.7.2"
+ruff = "^0.7.4"
 mypy = "^1.13.0"
 
 [tool.pytest.ini_options]
@@ -46,6 +47,7 @@ target-version = "py313"
 select = ["ALL"]
 fixable = ["I"]
 ignore = [
+    "ANN401",  # dynamically typed expressions (typing.Any) are disallowed in `{}`
     "ARG001",  # Unused function argument: `kwargs`
     "ARG002",  # unused method argument: `{}`
     "ARG004",  # Unused static method argument: `context`
@@ -70,6 +72,9 @@ ignore = [
     "D401",  # first line of docstring should be in imperative mood: "{}"
     "D404",  # first word of the docstring should not be "This"
     "D415",  # first line should end with a period, question mark, or exclamation point
+    "EM101",  # exception must not use a string literal, assign to variable first
+    "EM102",  # expection must not use an f-string literal, assign to variable first
+    "TRY003",  # avoid specifying long messages outside the exception class
 ]
 
 [tool.mypy]
